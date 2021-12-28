@@ -1,0 +1,10 @@
+
+tasks:
+  - init: |
+      npm i -g pnpm
+    command: |
+      pnpm install
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
