@@ -3,7 +3,7 @@ import { mockClient } from 'aws-sdk-client-mock';
 import {
   createMultipartUploads,
   CreateMultipartUpload,
-} from '../../lib/s3Actions/createMultipartUploads';
+} from '../src/createMultipartUploads';
 
 const bucketName = 'bucketName';
 const fileName = 'test.jpg';
@@ -39,7 +39,7 @@ describe('s3Actions', () => {
     it('should throw when create Multipart failed', async () => {
       s3Mock.on(CreateMultipartUploadCommand).rejects();
       await expect(
-        createMultipartUploads(createMultipartUpload)
+        createMultipartUploads(createMultipartUpload),
       ).rejects.toThrowError();
     });
   });

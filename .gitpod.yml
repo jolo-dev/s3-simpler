@@ -1,9 +1,8 @@
-
 tasks:
   - init: |
-      npm i -g pnpm
+      yarn
     command: |
-      pnpm install
+      yarn test
 
 vscode:
   extensions:

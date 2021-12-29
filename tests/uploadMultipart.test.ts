@@ -3,7 +3,7 @@ import { mockClient } from 'aws-sdk-client-mock';
 import {
   UploadMultipart,
   uploadMultipart,
-} from '../../lib/s3Actions/uploadMultipart';
+} from '../src/uploadMultipart';
 
 const bucketName = 'bucketName';
 const fileName = 'test.jpg';

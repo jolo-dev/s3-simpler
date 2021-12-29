@@ -1,15 +1,15 @@
+import fs from 'fs';
+import { Readable } from 'stream';
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { mockClient } from 'aws-sdk-client-mock';
-import { Readable } from 'stream';
 import {
   downloadFromS3,
   DownloadFromS3,
-} from '../../lib/s3Actions/downloadFromS3';
-import fs from 'fs';
+} from '../src/downloadFromS3';
 
 const s3Mock = mockClient(S3Client);
 var mockedStream = new Readable();
-mockedStream._read = function (size) {
+mockedStream._read = function () {
   /* do nothing */
 };
 
@@ -36,20 +36,19 @@ describe('s3Actions', () => {
         ContentType: 'jpg',
         Body: mockedStream,
       });
-      downloadFromS3(downloadFromS3Args).then((data) => {
-        expect(data).toBe('/tmp/test.jpg');
-      });
+      const data = await downloadFromS3(downloadFromS3Args);
+      expect(data).toBe('/tmp/test.jpg');
     });
 
     it('should throw on GetObjectCommand', async () => {
       s3Mock.on(GetObjectCommand).rejects();
       await expect(downloadFromS3(downloadFromS3Args)).rejects.toThrowError(
-        `Error for downloading from S3 Key: ${Key}`
+        `Error for downloading from S3 Key: ${Key}`,
       );
     });
 
     afterAll(() => {
-      fs.rmSync(`/tmp/${downloadFromS3Args.fileName}`);
+      fs.unlinkSync(`/tmp/${downloadFromS3Args.fileName}`);
     });
   });
 });

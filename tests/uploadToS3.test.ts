@@ -1,4 +1,4 @@
-import { uploadToS3 } from '../../lib/s3Actions/uploadToS3';
+import fs from 'fs';
 import {
   S3Client,
   CreateMultipartUploadCommand,
@@ -7,11 +7,11 @@ import {
   UploadPartCommand,
 } from '@aws-sdk/client-s3';
 import { mockClient } from 'aws-sdk-client-mock';
-import fs from 'fs';
-import { CreateMultipartUpload } from '../../lib/s3Actions/createMultipartUploads';
+import { CreateMultipartUpload } from '../src/createMultipartUploads';
+import { uploadToS3 } from '../src/uploadToS3';
 
-jest.mock('../../lib/s3Actions/generatePresignedUrl', () => ({
-  ...jest.requireActual('../../lib/s3Actions/generatePresignedUrl'),
+jest.mock('../src/generatePresignedUrl', () => ({
+  ...jest.requireActual('../src/generatePresignedUrl'),
   generatePresignedUrl: jest.fn().mockResolvedValue('testUrl'),
 }));
 
@@ -61,14 +61,22 @@ describe('s3Actions', () => {
     });
 
     it('should throw when one of the step failed', async () => {
+      s3Mock.on(ListMultipartUploadsCommand).resolves({
+        Uploads: [
+          {
+            Key,
+            UploadId: '1111',
+          },
+        ],
+      });
       s3Mock.on(CreateMultipartUploadCommand).rejects();
       await expect(uploadToS3(uploadToS3Args)).rejects.toThrowError(
-        `Error in uploadToS3 Key: ${Key}`
+        `Error in uploadToS3 Key: ${Key}`,
       );
     });
 
     afterAll(() => {
-      fs.rmSync(fileName);
+      fs.unlinkSync(fileName);
     });
   });
 });

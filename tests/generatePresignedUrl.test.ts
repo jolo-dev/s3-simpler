@@ -3,7 +3,7 @@ import { mockClient } from 'aws-sdk-client-mock';
 import {
   generatePresignedUrl,
   PresignedUrl,
-} from '../../lib/s3Actions/generatePresignedUrl';
+} from '../src/generatePresignedUrl';
 
 jest.mock('@aws-sdk/s3-request-presigner', () => ({
   ...jest.requireActual('@aws-sdk/s3-request-presigner'),

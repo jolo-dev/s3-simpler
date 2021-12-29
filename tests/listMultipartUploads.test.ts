@@ -1,6 +1,6 @@
 import { ListMultipartUploadsCommand, S3Client } from '@aws-sdk/client-s3';
 import { mockClient } from 'aws-sdk-client-mock';
-import { listMultipartsUploads } from '../../lib/s3Actions/listMultipartUploads';
+import { listMultipartsUploads } from '../src/listMultipartUploads';
 
 const bucketName = 'bucketName';
 
