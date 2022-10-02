@@ -4,15 +4,15 @@ import { Readable } from 'stream';
 import { GetObjectCommand, GetObjectCommandInput } from '@aws-sdk/client-s3';
 import { s3Client } from './config';
 
-type BaucameraImage = {
+type BucketFile = {
   projectId: string;
   userId: string;
   fileName: string;
 };
-export type DownloadFromS3 = Omit<GetObjectCommandInput, 'Key'> & BaucameraImage;
+export type DownloadFromS3 = Omit<GetObjectCommandInput, 'Key'> & BucketFile;
 
 /**
- * Download from S3 by a Baucamera Project
+ * Download from S3 by a key
  * @param args of Type DownloadFromS3
  * @returns Promise<string>
  */
@@ -32,12 +32,8 @@ export async function downloadFromS3(args: DownloadFromS3) {
       const tempFileName = path.join('/tmp/', fileName);
       const tempFile = fs.createWriteStream(Buffer.from(tempFileName));
 
-      body.pipe(tempFile).on('finish', () => {
+      body.pipe(tempFile).on('open', () => {
         resolve(tempFileName);
-      }).on('open', () => {
-        resolve(tempFileName);
-      }).on('close', () => {
-        console.log('close');
       });
     });
   } catch (error) {

@@ -11,7 +11,7 @@ import {
 import { s3Client, SPLIT_SIZE } from './config';
 
 export type CreateMultipartUpload = Pick<
-Omit<CreateMultipartUploadCommandInput, 'Bucket'>, // to force string
+Omit<CreateMultipartUploadCommandInput, 'Bucket'>, // to force bucket
 'Key' | 'Tagging'
 > & { FilePath: string; Bucket: string };
 
@@ -74,6 +74,7 @@ export function splitLargeFile( filePath: string ) {
  */
 export async function uploadPart( args: MultipartUpload ) {
   const { Bucket, Key, Multiparts, FilePath, Parts } = args;
+  console.log(Bucket, Key, Multiparts, FilePath, Parts);
 
   // Promise.all will ensure that the UploadPartCommand is executed sequentiell
   return Promise.all(

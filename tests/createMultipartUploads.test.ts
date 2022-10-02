@@ -1,8 +1,13 @@
-import { CreateMultipartUploadCommand, S3Client } from '@aws-sdk/client-s3';
+import { existsSync, unlinkSync } from 'fs';
+import path from 'path';
+import { CreateMultipartUploadCommand, S3Client, CreateMultipartUploadOutput, UploadPartCommand } from '@aws-sdk/client-s3';
 import { mockClient } from 'aws-sdk-client-mock';
 import {
   createMultipartUploads,
   CreateMultipartUpload,
+  uploadPart,
+  splitLargeFile,
+  MultipartUpload,
 } from '../src/createMultipartUploads';
 
 const bucketName = 'bucketName';
@@ -21,6 +26,7 @@ describe('s3Actions', () => {
       FilePath: fileName,
       Tagging: 'bla',
     };
+    const folder = path.dirname(__filename);
 
     beforeEach(() => {
       s3Mock.reset();
@@ -41,6 +47,34 @@ describe('s3Actions', () => {
       await expect(
         createMultipartUploads(createMultipartUpload),
       ).rejects.toThrowError();
+    });
+
+    it('should uploadPart', async () => {
+      s3Mock.on(UploadPartCommand).resolves({
+        ETag: 'foo',
+      });
+      const Multiparts: CreateMultipartUploadOutput = {
+        Bucket: bucketName,
+        Key: key,
+      };
+
+      const Parts = splitLargeFile( path.join(folder, '..', fileName) );
+      const args: MultipartUpload = {
+        ...createMultipartUpload,
+        Parts,
+        Multiparts,
+      };
+      const uploadParts = await uploadPart( args );
+      expect(uploadParts[0].ETag).toBe('foo');
+
+      // Check the Multipart path
+      const multipart = path.join(folder, '..', `${fileName}.part-aa`);
+      expect(existsSync(multipart)).toBeTruthy();
+    });
+
+    afterAll(() => {
+      const multipart = path.join(folder, '..', `${fileName}.part-aa`);
+      unlinkSync(multipart);
     });
   });
 });

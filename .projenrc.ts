@@ -14,5 +14,6 @@ const project = new typescript.TypeScriptProject({
       testTimeout: 90000,
     },
   },
+  gitignore: ['coverage/'],
 });
 project.synth();
