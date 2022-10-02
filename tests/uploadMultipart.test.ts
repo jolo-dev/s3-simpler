@@ -37,21 +37,9 @@ describe('s3Actions', () => {
       expect(response![0].Location).toEqual('bla');
     });
 
-    // it('should throw when CompleteMultipartUpload Command failed', async () => {
-    //   s3Mock.on(CompleteMultipartUploadCommand).rejects();
-    //   await expect(uploadMultipart(uploadMultipartArgs)).rejects.toThrowError();
-    // });
-
-    // it('should call AbortMultipartUpload Command when uploadMultipart failed', async () => {
-    //     const mockAbortMultipart = jest.fn() as jest.MockedFunction<typeof abortMultipart>;
-    //     s3Mock.on(CompleteMultipartUploadCommand).rejects();
-    //     await uploadMultipart(uploadMultipartArgs);
-    //     expect(mockAbortMultipart).toBeCalledTimes(1);
-    // });
-
-    // it('should call AbortMultipartUpload Command', async () => {
-    //     const mockUploadMultipart = jest.fn() as jest.MockedFunction<typeof uploadMultipart>;
-    //     await expect(uploadMultipart(uploadMultipartArgs)).resolves.toHaveBeenCalled();
-    // });
+    it('should throw when CompleteMultipartUpload Command failed', async () => {
+      s3Mock.on(CompleteMultipartUploadCommand).rejects();
+      await expect(uploadMultipart(uploadMultipartArgs)).rejects.toThrowError();
+    });
   });
 });

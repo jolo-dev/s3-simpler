@@ -15,7 +15,7 @@ jest.mock('../src/generatePresignedUrl', () => ({
   generatePresignedUrl: jest.fn().mockResolvedValue('testUrl'),
 }));
 
-const bucketName = 'baucameracloud8e9d90a2c10048249c4ad58ddddf50f7213143-dev';
+const bucketName = 'unique-bucket-name';
 const fileName = 'test.jpg';
 const projectId = 'testProject';
 const userId = 'test005';
@@ -73,10 +73,6 @@ describe('s3Actions', () => {
       await expect(uploadToS3(uploadToS3Args)).rejects.toThrowError(
         `Error in uploadToS3 Key: ${Key}`,
       );
-    });
-
-    afterAll(() => {
-      fs.unlinkSync(fileName);
     });
   });
 });
