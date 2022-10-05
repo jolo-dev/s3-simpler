@@ -1,4 +1,5 @@
-import fs from 'fs';
+import { unlinkSync } from 'fs';
+import path from 'path';
 import {
   S3Client,
   CreateMultipartUploadCommand,
@@ -22,6 +23,7 @@ const userId = 'test005';
 const Key = `${projectId}/${userId}/${fileName}`;
 
 const s3Mock = mockClient(S3Client);
+const folder = path.dirname(__filename);
 
 describe('s3Actions', () => {
   describe('uploadToS3', () => {
@@ -36,7 +38,6 @@ describe('s3Actions', () => {
     });
 
     it('should upload to S3', async () => {
-      fs.createWriteStream(fileName);
       s3Mock.on(CreateMultipartUploadCommand).resolves({
         Bucket: bucketName,
         Key,
@@ -73,6 +74,11 @@ describe('s3Actions', () => {
       await expect(uploadToS3(uploadToS3Args)).rejects.toThrowError(
         `Error in uploadToS3 Key: ${Key}`,
       );
+    });
+
+    afterAll(() => {
+      const multipart = path.join(folder, '..', `${fileName}.part-aa`);
+      unlinkSync(multipart);
     });
   });
 });

@@ -27,6 +27,7 @@
     "organization": false
   },
   "devDependencies": {
+    "@aws-sdk/types": "^3.0.0",
     "@tsconfig/recommended": "^1.0.1",
     "@types/jest": "^27.0.3",
     "@types/node": "^12",
@@ -48,7 +49,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.45.0",
+    "@aws-sdk/client-s3": "^3.181.0",
     "@aws-sdk/s3-request-presigner": "^3.45.0"
   },
   "main": "lib/index.js",
