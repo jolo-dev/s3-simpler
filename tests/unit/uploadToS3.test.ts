@@ -8,19 +8,17 @@ import {
   UploadPartCommand,
 } from '@aws-sdk/client-s3';
 import { mockClient } from 'aws-sdk-client-mock';
-import { CreateMultipartUpload } from '../src/createMultipartUploads';
-import { uploadToS3 } from '../src/uploadToS3';
+import { CreateMultipartUpload } from '../../src/createMultipartUploads';
+import { uploadToS3 } from '../../src/uploadToS3';
 
-jest.mock('../src/generatePresignedUrl', () => ({
-  ...jest.requireActual('../src/generatePresignedUrl'),
+jest.mock('../../src/generatePresignedUrl', () => ({
+  ...jest.requireActual('../../src/generatePresignedUrl'),
   generatePresignedUrl: jest.fn().mockResolvedValue('testUrl'),
 }));
 
 const bucketName = 'unique-bucket-name';
 const fileName = 'test.jpg';
-const projectId = 'testProject';
-const userId = 'test005';
-const Key = `${projectId}/${userId}/${fileName}`;
+const Key = fileName;
 
 const s3Mock = mockClient(S3Client);
 const folder = path.dirname(__filename);
@@ -77,7 +75,7 @@ describe('s3Actions', () => {
     });
 
     afterAll(() => {
-      const multipart = path.join(folder, '..', `${fileName}.part-aa`);
+      const multipart = path.join(folder, '..', '..', `${fileName}.part-aa`);
       unlinkSync(multipart);
     });
   });

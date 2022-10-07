@@ -3,13 +3,11 @@ import { mockClient } from 'aws-sdk-client-mock';
 import {
   UploadMultipart,
   uploadMultipart,
-} from '../src/uploadMultipart';
+} from '../../src/uploadMultipart';
 
 const bucketName = 'bucketName';
 const fileName = 'test.jpg';
-const projectId = 'testProject';
-const userId = 'test005';
-const key = `${projectId}/${userId}/${fileName}`;
+const key = fileName;
 
 const s3Mock = mockClient(S3Client);
 

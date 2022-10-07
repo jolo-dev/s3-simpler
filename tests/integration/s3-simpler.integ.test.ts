@@ -1,8 +1,8 @@
 import { existsSync } from 'fs';
 import path from 'path';
 import { S3Client, GetObjectCommand, DeleteBucketCommand, DeleteObjectCommand, CreateBucketCommand } from '@aws-sdk/client-s3';
-import { downloadFromS3 } from '../src/downloadFromS3';
-import { uploadToS3 } from '../src/uploadToS3';
+import { downloadFromS3 } from '../../src/downloadFromS3';
+import { uploadToS3 } from '../../src/uploadToS3';
 
 describe.only('integration', () =>{
 

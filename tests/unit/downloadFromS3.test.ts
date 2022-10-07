@@ -5,7 +5,7 @@ import { mockClient } from 'aws-sdk-client-mock';
 import {
   downloadFromS3,
   DownloadFromS3,
-} from '../src/downloadFromS3';
+} from '../../src/downloadFromS3';
 
 const s3Mock = mockClient(S3Client);
 var mockedStream = new Readable();

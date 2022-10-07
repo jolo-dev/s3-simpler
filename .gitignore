@@ -35,6 +35,7 @@ coverage/
 !/.projenrc.js
 /test-reports/
 junit.xml
+!/./jest.config.json
 /coverage/
 !/.github/workflows/build.yml
 /dist/changelog.md

@@ -3,7 +3,7 @@ import { mockClient } from 'aws-sdk-client-mock';
 import {
   generatePresignedUrl,
   PresignedUrl,
-} from '../src/generatePresignedUrl';
+} from '../../src/generatePresignedUrl';
 
 jest.mock('@aws-sdk/s3-request-presigner', () => ({
   ...jest.requireActual('@aws-sdk/s3-request-presigner'),
@@ -12,9 +12,7 @@ jest.mock('@aws-sdk/s3-request-presigner', () => ({
 
 const bucketName = 'bucketName';
 const fileName = 'test.jpg';
-const projectId = 'testProject';
-const userId = 'test005';
-const key = `${projectId}/${userId}/${fileName}`;
+const key = fileName;
 
 const s3Mock = mockClient(S3Client);
 
