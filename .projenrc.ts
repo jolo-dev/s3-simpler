@@ -20,4 +20,7 @@ const project = new typescript.TypeScriptProject({
   },
   gitignore: ['coverage/'],
 });
+
+project.setScript('test:unit', 'npx jest --projects tests/unit');
+project.setScript('test:integration', 'npx jest --projects tests/integration');
 project.synth();

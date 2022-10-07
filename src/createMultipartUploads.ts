@@ -74,7 +74,6 @@ export function splitLargeFile( filePath: string ) {
  */
 export async function uploadPart( args: MultipartUpload ) {
   const { Bucket, Key, Multiparts, FilePath, Parts } = args;
-  console.log(Bucket, Key, Multiparts, FilePath, Parts);
 
   // Promise.all will ensure that the UploadPartCommand is executed sequentiell
   return Promise.all(
