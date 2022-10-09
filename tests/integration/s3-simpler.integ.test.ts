@@ -1,6 +1,6 @@
 import { existsSync } from 'fs';
 import path from 'path';
-import { S3Client, GetObjectCommand, DeleteBucketCommand, DeleteObjectCommand, CreateBucketCommand } from '@aws-sdk/client-s3';
+import { S3Client, GetObjectCommand, CreateBucketCommand, DeleteBucketCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { downloadFromS3 } from '../../src/downloadFromS3';
 import { uploadToS3 } from '../../src/uploadToS3';
 
@@ -13,7 +13,7 @@ describe.only('integration', () =>{
   const s3 = new S3Client({ region: 'eu-central-1' });
   const fileName = 'test.jpg';
   const dirname = path.dirname(__filename);
-  const FilePath = path.join(dirname, '..', fileName);
+  const FilePath = path.join(dirname, '..', '..', fileName);
 
   beforeAll(async () => {
     const createBucketCommand = new CreateBucketCommand({
@@ -30,24 +30,28 @@ describe.only('integration', () =>{
       Key: fileName,
     });
     console.log(signedUrl);
+    setTimeout(async () => {
+      // check if file was really uploaded
+      const getObjectCommand = new GetObjectCommand({
+        Bucket: bucketName,
+        Key: fileName,
+      });
+      const result = await s3.send(getObjectCommand);
 
-    // check if file was really uploaded
-    const getObjectCommand = new GetObjectCommand({
-      Bucket: bucketName,
-      Key: fileName,
-    });
-    const result = await s3.send(getObjectCommand);
+      expect(result.Body).not.toBeNull();
+    }, 1000);
 
-    expect(result.Body).not.toBeNull();
   });
 
   it('should download the test.jpg', async () => {
-    await downloadFromS3({
-      Bucket: bucketName,
-      fileName,
-    });
+    setTimeout(async () => {
+      await downloadFromS3({
+        Bucket: bucketName,
+        fileName,
+      });
 
-    expect(existsSync(path.join('/tmp', fileName))).toBeTruthy();
+      expect(existsSync(path.join('/tmp', fileName))).toBeTruthy();
+    }, 1000);
   });
 
   afterAll(async () => {
