@@ -211,10 +211,10 @@
           "exec": "npm-check-updates --dep bundle --upgrade --target=minor --reject='projen'"
         },
         {
-          "exec": "yarn install --check-files"
+          "exec": "pnpm i"
         },
         {
-          "exec": "yarn upgrade @tsconfig/recommended @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-sdk-client-mock eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit json-schema npm-check-updates standard-version ts-jest ts-node typescript @aws-sdk/client-s3 @aws-sdk/s3-request-presigner"
+          "exec": "pnpm update @aws-sdk/types @tsconfig/recommended @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-sdk-client-mock eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit json-schema npm-check-updates standard-version ts-jest ts-node typescript @aws-sdk/client-s3 @aws-sdk/s3-request-presigner"
         },
         {
           "exec": "npx projen"
@@ -244,10 +244,10 @@
           "exec": "npm-check-updates --dep bundle --upgrade --target=minor --filter='projen'"
         },
         {
-          "exec": "yarn install --check-files"
+          "exec": "pnpm i"
         },
         {
-          "exec": "yarn upgrade projen"
+          "exec": "pnpm update projen"
         },
         {
           "exec": "npx projen"

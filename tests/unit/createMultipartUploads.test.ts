@@ -8,13 +8,11 @@ import {
   uploadPart,
   splitLargeFile,
   MultipartUpload,
-} from '../src/createMultipartUploads';
+} from '../../src/createMultipartUploads';
 
 const bucketName = 'bucketName';
 const fileName = 'test.jpg';
-const projectId = 'testProject';
-const userId = 'test005';
-const key = `${projectId}/${userId}/${fileName}`;
+const key = fileName;
 
 const s3Mock = mockClient(S3Client);
 
@@ -58,7 +56,7 @@ describe('s3Actions', () => {
         Key: key,
       };
 
-      const Parts = splitLargeFile( path.join(folder, '..', fileName) );
+      const Parts = splitLargeFile( path.join(folder, '..', '..', fileName) );
       const args: MultipartUpload = {
         ...createMultipartUpload,
         Parts,
@@ -68,12 +66,12 @@ describe('s3Actions', () => {
       expect(uploadParts[0].ETag).toBe('foo');
 
       // Check the Multipart path
-      const multipart = path.join(folder, '..', `${fileName}.part-aa`);
+      const multipart = path.join(folder, '..', '..', `${fileName}.part-aa`);
       expect(existsSync(multipart)).toBeTruthy();
     });
 
     afterAll(() => {
-      const multipart = path.join(folder, '..', `${fileName}.part-aa`);
+      const multipart = path.join(folder, '..', '..', `${fileName}.part-aa`);
       unlinkSync(multipart);
     });
   });

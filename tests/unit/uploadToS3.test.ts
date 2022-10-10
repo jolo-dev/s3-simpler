@@ -1,4 +1,5 @@
-import fs from 'fs';
+import { unlinkSync } from 'fs';
+import path from 'path';
 import {
   S3Client,
   CreateMultipartUploadCommand,
@@ -7,21 +8,20 @@ import {
   UploadPartCommand,
 } from '@aws-sdk/client-s3';
 import { mockClient } from 'aws-sdk-client-mock';
-import { CreateMultipartUpload } from '../src/createMultipartUploads';
-import { uploadToS3 } from '../src/uploadToS3';
+import { CreateMultipartUpload } from '../../src/createMultipartUploads';
+import { uploadToS3 } from '../../src/uploadToS3';
 
-jest.mock('../src/generatePresignedUrl', () => ({
-  ...jest.requireActual('../src/generatePresignedUrl'),
+jest.mock('../../src/generatePresignedUrl', () => ({
+  ...jest.requireActual('../../src/generatePresignedUrl'),
   generatePresignedUrl: jest.fn().mockResolvedValue('testUrl'),
 }));
 
 const bucketName = 'unique-bucket-name';
 const fileName = 'test.jpg';
-const projectId = 'testProject';
-const userId = 'test005';
-const Key = `${projectId}/${userId}/${fileName}`;
+const Key = fileName;
 
 const s3Mock = mockClient(S3Client);
+const folder = path.dirname(__filename);
 
 describe('s3Actions', () => {
   describe('uploadToS3', () => {
@@ -36,7 +36,6 @@ describe('s3Actions', () => {
     });
 
     it('should upload to S3', async () => {
-      fs.createWriteStream(fileName);
       s3Mock.on(CreateMultipartUploadCommand).resolves({
         Bucket: bucketName,
         Key,
@@ -73,6 +72,11 @@ describe('s3Actions', () => {
       await expect(uploadToS3(uploadToS3Args)).rejects.toThrowError(
         `Error in uploadToS3 Key: ${Key}`,
       );
+    });
+
+    afterAll(() => {
+      const multipart = path.join(folder, '..', '..', `${fileName}.part-aa`);
+      unlinkSync(multipart);
     });
   });
 });

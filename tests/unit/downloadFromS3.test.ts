@@ -5,7 +5,7 @@ import { mockClient } from 'aws-sdk-client-mock';
 import {
   downloadFromS3,
   DownloadFromS3,
-} from '../src/downloadFromS3';
+} from '../../src/downloadFromS3';
 
 const s3Mock = mockClient(S3Client);
 var mockedStream = new Readable();
@@ -13,18 +13,14 @@ mockedStream._read = function () {
   /* do nothing */
 };
 
-const projectId = 'testProject';
-const userId = 'test005';
 const fileName = 'test.jpg';
-const Key = `${projectId}/${userId}/${fileName}`;
+const Key = fileName;
 
 describe('s3Actions', () => {
   describe('downloadFromS3', () => {
     const downloadFromS3Args: DownloadFromS3 = {
       Bucket: 'bucketName',
       fileName,
-      projectId,
-      userId,
     };
 
     beforeEach(() => {

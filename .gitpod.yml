@@ -2,7 +2,7 @@ tasks:
   - init: |
       pnpm i
     command: |
-      pnpm test
+      pnpm test:unit
 
 vscode:
   extensions:

@@ -5,8 +5,6 @@ import { GetObjectCommand, GetObjectCommandInput } from '@aws-sdk/client-s3';
 import { s3Client } from './config';
 
 type BucketFile = {
-  projectId: string;
-  userId: string;
   fileName: string;
 };
 export type DownloadFromS3 = Omit<GetObjectCommandInput, 'Key'> & BucketFile;
@@ -17,8 +15,8 @@ export type DownloadFromS3 = Omit<GetObjectCommandInput, 'Key'> & BucketFile;
  * @returns Promise<string>
  */
 export async function downloadFromS3(args: DownloadFromS3) {
-  const { projectId, userId, fileName, Bucket } = args;
-  const Key = `${projectId}/${userId}/${fileName}`;
+  const { fileName, Bucket } = args;
+  const Key = fileName;
   const s3GetObjectInput: GetObjectCommandInput = {
     Bucket,
     Key,
