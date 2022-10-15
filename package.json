@@ -20,8 +20,8 @@
     "upgrade-projen": "npx projen upgrade-projen",
     "watch": "npx projen watch",
     "projen": "npx projen",
-    "test:unit": "npx jest --projects tests/unit",
-    "test:integration": "npx jest --projects tests/integration"
+    "test:unit": "npx jest tests/unit",
+    "test:integration": "npx jest tests/integration"
   },
   "author": {
     "name": "John Nguyen",

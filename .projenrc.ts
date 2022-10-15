@@ -15,12 +15,11 @@ const project = new typescript.TypeScriptProject({
     configFilePath: './jest.config.json',
     jestConfig: {
       testTimeout: 90000,
-      projects: ['<rootDir>/tests/*'],
     },
   },
   gitignore: ['coverage/'],
 });
 
-project.setScript('test:unit', 'npx jest --projects tests/unit');
-project.setScript('test:integration', 'npx jest --projects tests/integration');
+project.setScript('test:unit', 'npx jest tests/unit');
+project.setScript('test:integration', 'npx jest tests/integration');
 project.synth();

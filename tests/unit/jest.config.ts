@@ -10,7 +10,6 @@ module.exports = {
   roots: [
     '<rootDir>',
   ],
-
   // ...and your other env options,
   // such as test environment, coverage, etc
 };

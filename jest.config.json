@@ -1,8 +1,5 @@
 {
   "testTimeout": 90000,
-  "projects": [
-    "<rootDir>/tests/*"
-  ],
   "testMatch": [
     "**/__tests__/**/*.ts?(x)",
     "**/?(*.)+(spec|test).ts?(x)"
