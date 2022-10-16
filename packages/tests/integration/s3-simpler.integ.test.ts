@@ -45,11 +45,7 @@ describe.only('integration', () =>{
 
   it('should download the test.jpg', async () => {
     setTimeout(async () => {
-      await downloadFromS3({
-        Bucket: bucketName,
-        fileName,
-      });
-
+      await downloadFromS3(bucketName, fileName, '/tmp');
       expect(existsSync(path.join('/tmp', fileName))).toBeTruthy();
     }, 1000);
   });
