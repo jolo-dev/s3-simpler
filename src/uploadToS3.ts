@@ -1,6 +1,6 @@
 import {
-  CreateMultipartUpload,
-  multipartUpload,
+	CreateMultipartUpload,
+	multipartUpload,
 } from './createMultipartUploads';
 import { generatePresignedUrl } from './generatePresignedUrl';
 import { listMultipartsUploads } from './listMultipartUploads';
@@ -20,24 +20,30 @@ import { abortMultipart, uploadMultipart } from './uploadMultipart';
  * @param args {CreateMultipartUpload} Argument for Creating Multipart Upload
  * @returns Promise<string>
  */
-export async function uploadToS3( args: CreateMultipartUpload ) {
-  const { Bucket, Key } = args;
-  const multipart = await listMultipartsUploads( Bucket );
-  try {
-    const completedParts = await multipartUpload( args );
-    await uploadMultipart( { Bucket, completedParts, Uploads: multipart.Uploads! } );
-    const url = await generatePresignedUrl( {
-      Bucket,
-      Key,
-      expiresIn: 60 * 60 * 24 * 7,
-    } ); // 60s * 60min * 24h * 7d = 1 week
-    return url;
-  } catch ( error ) {
-    console.log( error );
-    await abortMultipart( {
-      Bucket,
-      Uploads: multipart.Uploads!,
-    } );
-    throw new Error( `Error in uploadToS3 Key: ${Key}` );
-  }
+export async function uploadToS3(args: CreateMultipartUpload) {
+	const { Bucket, Key } = args;
+	const multipart = await listMultipartsUploads(Bucket);
+	try {
+		const completedParts = await multipartUpload(args);
+		await uploadMultipart({
+			Bucket,
+			completedParts,
+			// biome-ignore lint/style/noNonNullAssertion: we need to assert that Uploads is not null
+			Uploads: multipart.Uploads!,
+		});
+		const url = await generatePresignedUrl({
+			Bucket,
+			Key,
+			expiresIn: 60 * 60 * 24 * 7,
+		}); // 60s * 60min * 24h * 7d = 1 week
+		return url;
+	} catch (error) {
+		console.log(error);
+		await abortMultipart({
+			Bucket,
+			// biome-ignore lint/style/noNonNullAssertion: we need to assert that Uploads is not null
+			Uploads: multipart.Uploads!,
+		});
+		throw new Error(`Error in uploadToS3 Key: ${Key}`);
+	}
 }

@@ -4,7 +4,7 @@ Thanks for contributing. In the following section, you will find how to set up s
 
 ## Pre-requisite
 
-- >= [NodeJs 16.x](https://nodejs.org/en/)
+- >= [NodeJs 18.x](https://nodejs.org/en/)
 - [PNPM](https://pnpm.io/)
 - AWS account and use the environment variables
     - `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRETS_ACCESS_KEY`, `AWS_SESSION_TOKEN` (when SSO)
@@ -39,5 +39,24 @@ Run just integration tests. This works only when AWS credentials are provided.
 pnpm test:integration
 ```
 
+Run the vitest UI.
 
+```sh
+pnpm vitest:ui
+```
 
+## Linting and Formatting (Checking)
+
+We use [Biome](https://biomejs.dev/) to format and lint.
+
+```sh
+pnpm lint
+```
+
+This runs a [safe](https://biomejs.dev/linter/#safe-fixes) fix linting. If not everything is formatted but after reviewing you see it is fine, you can run 
+
+```sh
+pnpm lint:unsafe
+```
+
+Usually, this is sufficient to format and lint at the same time.

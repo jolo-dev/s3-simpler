@@ -1,9 +1,9 @@
 tasks:
   - init: |
-      pnpm i
+      pnpm install
     command: |
       pnpm test:unit
 
 vscode:
   extensions:
-    - dbaeumer.vscode-eslint
+    - biomejs.biome
