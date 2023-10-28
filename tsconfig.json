@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/bun/tsconfig.json",
+  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     "types": ["vitest/globals"]
   }

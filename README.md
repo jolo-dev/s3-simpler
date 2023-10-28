@@ -12,6 +12,3 @@ The idea is that the user can simply use `s4.upload('mybucket', 'path/to/my/larg
 ## Get Involved
 
 See the `CONTRIBUTION.md`.
-
-
-

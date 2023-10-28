@@ -19,7 +19,7 @@ coverage
 build/Release
 node_modules/
 jspm_packages/
-*.tsbuildinfo
+*.tsbuildinfox^
 .eslintcache
 *.tgz
 .yarn-integrity

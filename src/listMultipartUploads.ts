@@ -1,6 +1,6 @@
 import {
-  ListMultipartUploadsCommandOutput,
-  ListMultipartUploadsCommand,
+	ListMultipartUploadsCommand,
+	ListMultipartUploadsCommandOutput,
 } from '@aws-sdk/client-s3';
 import { s3Client } from './config';
 
@@ -10,11 +10,11 @@ import { s3Client } from './config';
  * @returns
  */
 export async function listMultipartsUploads(
-  bucketName: string,
+	bucketName: string,
 ): Promise<ListMultipartUploadsCommandOutput> {
-  const listMultipartUpload = new ListMultipartUploadsCommand({
-    Bucket: bucketName,
-  });
-  const listMultipartUploadResponse = await s3Client.send(listMultipartUpload);
-  return listMultipartUploadResponse;
+	const listMultipartUpload = new ListMultipartUploadsCommand({
+		Bucket: bucketName,
+	});
+	const listMultipartUploadResponse = await s3Client.send(listMultipartUpload);
+	return listMultipartUploadResponse;
 }

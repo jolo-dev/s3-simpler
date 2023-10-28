@@ -1,8 +1,8 @@
 tasks:
   - init: |
-      bun install
+      pnpm install
     command: |
-      bun test:unit
+      pnpm test:unit
 
 vscode:
   extensions:

@@ -10,11 +10,11 @@ export type PresignedUrl = GetObjectCommandInput & { expiresIn: number };
  * @returns
  */
 export async function generatePresignedUrl(args: PresignedUrl) {
-  const command = new GetObjectCommand(args);
-  const { expiresIn } = args;
-  // const object = await s3Client.send();
-  const url = await getSignedUrl(s3Client, command, {
-    expiresIn,
-  });
-  return url;
+	const command = new GetObjectCommand(args);
+	const { expiresIn } = args;
+	// const object = await s3Client.send();
+	const url = await getSignedUrl(s3Client, command, {
+		expiresIn,
+	});
+	return url;
 }
