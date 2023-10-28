@@ -6,7 +6,7 @@ import {
 } from '../../src/uploadMultipart';
 
 const bucketName = 'bucketName';
-const fileName = 'test.jpg';
+const fileName = 'tests/test.jpg';
 const key = fileName;
 
 const s3Mock = mockClient(S3Client);

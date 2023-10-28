@@ -1,8 +1,0 @@
-{
-  "plugins": [
-    "'@typescript-eslint",
-    "@stylistic/ts"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "@stylistic/ts/indent": ["error", 2]
-}

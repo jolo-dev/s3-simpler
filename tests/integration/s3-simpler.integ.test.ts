@@ -11,7 +11,7 @@ describe.only('integration', () =>{
    */
   const bucketName = 'super-random-test-bucket-12345';
   const s3 = new S3Client({ region: 'eu-central-1' });
-  const fileName = 'test.jpg';
+  const fileName = 'tests/test.jpg';
   const dirname = path.dirname(__filename);
   const FilePath = path.join(dirname, '..', '..', fileName);
 

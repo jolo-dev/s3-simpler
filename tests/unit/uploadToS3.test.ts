@@ -11,13 +11,13 @@ import { mockClient } from 'aws-sdk-client-mock';
 import { CreateMultipartUpload } from '../../src/createMultipartUploads';
 import { uploadToS3 } from '../../src/uploadToS3';
 
-jest.mock('../../src/generatePresignedUrl', () => ({
-  ...jest.requireActual('../../src/generatePresignedUrl'),
-  generatePresignedUrl: jest.fn().mockResolvedValue('testUrl'),
+vi.mock('../../src/generatePresignedUrl', () => ({
+  ...vi.importActual('../../src/generatePresignedUrl'),
+  generatePresignedUrl: vi.fn().mockResolvedValue('testUrl'),
 }));
 
 const bucketName = 'unique-bucket-name';
-const fileName = 'test.jpg';
+const fileName = 'tests/test.jpg';
 const Key = fileName;
 
 const s3Mock = mockClient(S3Client);
@@ -76,7 +76,11 @@ describe('s3Actions', () => {
 
     afterAll(() => {
       const multipart = path.join(folder, '..', '..', `${fileName}.part-aa`);
-      unlinkSync(multipart);
+      if(!multipart){
+        return;
+      }else {
+        unlinkSync(multipart);
+      }
     });
   });
 });

@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "build": "bun",
-    "lint": "eslint .",
+    "lint": "eslint --fix tests/**/*.ts",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:unit": "vitest -t tests/unit",
-    "test:integration": "vitest -t tests/integration"
+    "test:unit": "vitest --config ./tests/vitest.config.ts",
+    "test:integration": "vitest --config ./tests/vitest.config.integ.ts",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "engines": {
     "node": ">= 18"
@@ -24,11 +26,15 @@
     "@stylistic/eslint-plugin-ts": "^0.1.1",
     "@tsconfig/bun": "^1.0.1",
     "@types/node": "^20.8.9",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/ui": "^0.34.6",
     "aws-sdk-client-mock": "^3.0.0",
     "bun": "^1.0.7",
     "standard-version": "^9.5.0",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
+    "vitest": "^v1.0.0-beta.3"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.437.0",

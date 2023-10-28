@@ -5,13 +5,13 @@ import {
   PresignedUrl,
 } from '../../src/generatePresignedUrl';
 
-jest.mock('@aws-sdk/s3-request-presigner', () => ({
-  ...jest.requireActual('@aws-sdk/s3-request-presigner'),
-  getSignedUrl: jest.fn().mockResolvedValue('testUrl'),
+vi.mock('@aws-sdk/s3-request-presigner', () => ({
+  ...vi.importActual('@aws-sdk/s3-request-presigner'),
+  getSignedUrl: vi.fn().mockResolvedValue('testUrl'),
 }));
 
 const bucketName = 'bucketName';
-const fileName = 'test.jpg';
+const fileName = 'tests/test.jpg';
 const key = fileName;
 
 const s3Mock = mockClient(S3Client);
