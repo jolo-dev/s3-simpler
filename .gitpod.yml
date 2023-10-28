@@ -6,4 +6,4 @@ tasks:
 
 vscode:
   extensions:
-    - dbaeumer.vscode-eslint
+    - biomejs.biome
