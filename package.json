@@ -1,64 +1,24 @@
 {
   "name": "s3-simpler",
   "version": "0.0.1",
-  "description": "Let's be honest. What do you need when working with S3? Right, simply uploading, downloading, and sharing.",
-  "private": "true",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./index.js": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./index.d.ts": {
-      "import": "./dist/index.d.ts",
-      "require": "./dist/index.d.ts"
-    }
-  },
+  "description": "",
+  "private": true,
   "scripts": {
-    "build": "esbuild ./index.ts --bundle --platform=node",
-    "build:esm": "pnpm build --format=esm --main-fields=module,main --outdir=./dist",
-    "build:cjs": "pnpm build --format=cjs --main-fields=main,module --outfile=dist/index.cjs",
-    "build:all": "pnpm build:esm && pnpm build:cjs",
-    "lint": "biome check --apply ./src ./tests",
-    "lint:unsafe": "biome check --apply-unsafe ./src ./tests",
-    "format": "biome format --write ./src ./tests",
-    "test": "vitest",
-    "test:watch": "vitest --watch",
-    "test:unit": "vitest --config ./tests/vitest.config.ts --run",
-    "test:integration": "vitest --config ./tests/vitest.config.integ.ts --run",
+    "test": "vitest --globals --run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui"
   },
-  "engines": {
-    "node": ">= 18"
-  },
-  "author": {
-    "name": "John Nguyen",
-    "email": "johnyscrazy@gmail.com",
-    "organization": false
-  },
   "devDependencies": {
-    "@aws-sdk/types": "^3.433.0",
     "@biomejs/biome": "1.3.1",
-    "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^20.8.9",
-    "@vitest/coverage-v8": "^0.34.6",
-    "@vitest/ui": "^0.34.6",
-    "aws-sdk-client-mock": "^3.0.0",
+    "@tsconfig/recommended": "^1.0.3",
+    "@vitest/coverage-v8": "^v1.0.0-beta.3",
+    "@vitest/ui": "^v1.0.0-beta.3",
     "esbuild": "^0.19.5",
-    "standard-version": "^9.5.0",
-    "typescript": "^5.2.2",
-    "vitest": "^v1.0.0-beta.3"
+    "vitest": "^v1.0.0-beta.3",
+    "typescript": "^5.2.2"
   },
-  "dependencies": {
-    "@aws-sdk/client-s3": "^3.437.0",
-    "@aws-sdk/s3-request-presigner": "^3.437.0"
-  },
-  "license": "Apache-2.0"
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
